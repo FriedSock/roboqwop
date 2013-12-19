@@ -22,6 +22,7 @@ root.click
 end
 text = 'screenshot.png'
 browser.save_screenshot text
+`convert screenshot.png -negate screenshot.png`
 raw = e.text_for(text)
 
 distance = raw.match(/(\S*) metres/)[1]
