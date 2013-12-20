@@ -20,15 +20,18 @@ root.click
 (1..20).each do |i|
   root.send_keys 'ooooooooooooo'
 end
-text = 'screenshot.png'
-browser.save_screenshot text
-`convert screenshot.png -negate screenshot.png`
-raw = e.text_for(text)
 
-distance = raw.match(/(\S*) metres/)[1]
+browser.save_screenshot 'screenshot.png'
+
+`convert screenshot.png -negate -crop 650x500+203+140 screenshot.png`
+`convert screenshot.png -crop 300x50+360+170 crop.png`
+fall = e.text_for 'screenshot.png'
+distance = e.text_for 'crop.png'
+
+distance = distance.match(/(\S*) metres/)[1]
 puts "Distance travelled: " + distance
 
-if raw.include? 'showing real courage'
+if fall.include? 'showing real courage'
   puts "Roboqwop fell over"
 else
   puts "Roboqwop was still running"
